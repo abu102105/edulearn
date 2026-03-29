@@ -45,6 +45,7 @@ body::before{content:'';position:fixed;inset:0;
   background:rgba(10,11,15,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
   border-bottom:1px solid rgba(124,58,237,.18);
   display:flex;align-items:center;gap:10px;padding:0 12px;z-index:500;}
+.hdr-row1{display:contents;} /* desktop: hamma narsa bir qatorda */
 .hl{display:flex;align-items:center;gap:8px;flex-shrink:0;}
 #menuBtn{background:none;border:none;color:var(--tx);cursor:pointer;
   width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;transition:background .15s;}
@@ -437,14 +438,74 @@ body::before{content:'';position:fixed;inset:0;
 
 /* === RESPONSIVE === */
 @media(max-width:960px){.pm-body{grid-template-columns:1fr;}.pm-right{display:none;}}
+
 @media(max-width:700px){
+  /* Sidebar */
   #sb{transform:translateX(-100%);box-shadow:none;}
   #sb.open{transform:translateX(0);box-shadow:20px 0 60px rgba(0,0,0,.5);}
   #main{margin-left:0!important;}
+
+  /* Header — 2 qatorli */
+  #hdr{
+    height:auto;
+    flex-wrap:wrap;
+    padding:8px 10px 0;
+    gap:0;
+    flex-direction:column;
+    align-items:stretch;
+  }
+  /* 1-qator: menu + logo + API tugmasi */
+  .hdr-row1{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    width:100%;
+    padding-bottom:8px;
+  }
+  .hl{flex:1;}
+  .logo-txt{font-size:.8rem;}
+  .logo-sub{font-size:.48rem;}
+  .hbtns{margin-left:auto;flex-shrink:0;}
+  #hdrUser .user-name-hdr{display:none;}
+
+  /* 2-qator: qidiruv to'liq kenglikda */
+  .hc{
+    max-width:100%;
+    width:100%;
+    padding-bottom:8px;
+  }
+  #sbox{height:38px;font-size:.84rem;}
+
+  /* Main content pastga tushsin (2 qator header uchun) */
+  #main{padding-top:96px;}
+
+  /* Grid — 1 ustun */
+  #grid,#subGrid,#histGrid,#favGrid{grid-template-columns:1fr;}
+
+  /* Hero */
   .hero-sticker{display:none;}
   .hero-title{font-size:1rem;}
-  #grid,#subGrid,#histGrid,#favGrid{grid-template-columns:1fr;}
-  .user-name-hdr{display:none;}
+  .hero-banner{padding:18px 16px;}
+
+  /* Chips scroll */
+  .chips-wrap{top:calc(96px + 46px);}
+
+  /* Tabs sticky */
+  .tabs{top:96px;}
+
+  /* Player modal fullscreen */
+  .pm-wrap{padding:0;}
+  .pm-topbar{padding:8px 12px;}
+  .pm-left{padding:10px 10px 0;}
+  .vid-title{font-size:.88rem;}
+  .vid-actions{gap:6px;}
+  .vbtn{font-size:.72rem;padding:7px 12px;}
+}
+
+@media(max-width:380px){
+  .logo-txt{font-size:.72rem;}
+  .hbtn{font-size:.65rem;padding:4px 8px;}
+  #sbox{font-size:.78rem;}
 }
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 .section-sticker{display:inline-flex;align-items:center;gap:8px;}
@@ -457,42 +518,49 @@ body::before{content:'';position:fixed;inset:0;
 
 <!-- HEADER -->
 <header id="hdr">
-  <div class="hl">
-    <button id="menuBtn" aria-label="Menu">
-      <svg width="18" height="14" viewBox="0 0 18 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-        <line x1="0" y1="1" x2="18" y2="1"/><line x1="0" y1="7" x2="14" y2="7"/><line x1="0" y1="13" x2="18" y2="13"/>
-      </svg>
-    </button>
-    <div class="logo">
-      <img id="logoImg" class="logo-img" src="https://rgn.uz/wp-content/uploads/2023/02/New-logo.svg" alt="Reagiston" onerror="this.style.display='none';document.getElementById('logoFallback').style.display='flex'"/>
-      <div class="logo-icon-fallback" id="logoFallback" style="display:none;">
-        <svg viewBox="0 0 36 36" width="36" height="36" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect width="36" height="36" rx="9" fill="url(#lgOlv)"/>
-          <defs><linearGradient id="lgOlv" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#7C3AED"/><stop offset="100%" stop-color="#6D28D9"/>
-          </linearGradient></defs>
-          <path d="M7 26L11 9L18 20L25 9L29 26" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-          <circle cx="18" cy="7" r="2.2" fill="#A78BFA"/>
+  <!-- 1-qator: menu + logo + user/API -->
+  <div class="hdr-row1">
+    <div class="hl">
+      <button id="menuBtn" aria-label="Menu">
+        <svg width="18" height="14" viewBox="0 0 18 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="0" y1="1" x2="18" y2="1"/><line x1="0" y1="7" x2="14" y2="7"/><line x1="0" y1="13" x2="18" y2="13"/>
         </svg>
-      </div>
-      <div>
-        <div class="logo-txt"><span>Reagiston</span> Learn</div>
-        <div class="logo-sub">O'quv Markazi · Bepul Videolar</div>
+      </button>
+      <div class="logo">
+        <img id="logoImg" class="logo-img" src="https://rgn.uz/wp-content/uploads/2023/02/New-logo.svg" alt="Reagiston"
+          style="display:none;"
+          onload="this.style.display='flex';document.getElementById('logoFallback').style.display='none';"
+          onerror="this.style.display='none';document.getElementById('logoFallback').style.display='flex';"/>
+        <div class="logo-icon-fallback" id="logoFallback" style="display:flex;">
+          <svg viewBox="0 0 36 36" width="36" height="36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="36" height="36" rx="9" fill="url(#lgOrng)"/>
+            <defs><linearGradient id="lgOrng" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#ff6a00"/><stop offset="100%" stop-color="#ee0979"/>
+            </linearGradient></defs>
+            <text x="8" y="27" font-family="Georgia,serif" font-weight="900" font-size="22" fill="#fff" opacity="0.95">R</text>
+            <circle cx="28" cy="10" r="4" fill="rgba(255,180,80,0.7)"/>
+            <circle cx="28" cy="10" r="2" fill="#fff"/>
+          </svg>
+        </div>
+        <div>
+          <div class="logo-txt"><span>Registon</span> LC</div>
+          <div class="logo-sub">O'quv Markazi · Bepul Videolar</div>
+        </div>
       </div>
     </div>
+    <div class="hbtns">
+      <button class="hbtn" id="openApi">🔑 API</button>
+      <div id="hdrUser"></div>
+    </div>
   </div>
+  <!-- 2-qator: qidiruv -->
   <div class="hc">
-    <input id="sbox" type="search" placeholder="🔍  Mavzu, dars yoki kalit so'z kiriting..." autocomplete="off"/>
+    <input id="sbox" type="search" placeholder="🔍  Mavzu yoki kalit so'z kiriting..." autocomplete="off"/>
     <button id="sgo" aria-label="Qidirish">
       <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
         <circle cx="5.5" cy="5.5" r="4"/><line x1="9" y1="9" x2="12" y2="12"/>
       </svg>
     </button>
-  </div>
-  <div class="hbtns">
-    <button class="hbtn" id="openApi">🔑 API</button>
-    <!-- User pill — filled by JS -->
-    <div id="hdrUser"></div>
   </div>
 </header>
 
@@ -517,59 +585,59 @@ body::before{content:'';position:fixed;inset:0;
 
   <div class="ndiv"></div>
   <div class="sb-lbl">📖 Kurslar</div>
-  <div class="si active" id="si-all" onclick="go('Reagiston ta\'lim markazi','📚 Barcha Darslar','all')">
+  <div class="si active" id="si-all" onclick="go('o\'quv darslari uzbek','📚 Barcha Darslar','all')">
     <span style="font-size:.9rem">📚</span> Barcha Darslar
   </div>
-  <div class="si" id="si-ielts" onclick="go('Reagiston IELTS','🎯 IELTS','ielts')">
+  <div class="si" id="si-ielts" onclick="go('IELTS preparation lessons','🎯 IELTS','ielts')">
     <span class="sd" style="background:#4f7fff"></span> IELTS
   </div>
-  <div class="si" id="si-speak" onclick="go('Reagiston speaking ingliz tili','🗣️ Speaking','speak')">
+  <div class="si" id="si-speak" onclick="go('English speaking practice lessons','🗣️ Speaking','speak')">
     <span class="sd" style="background:#00c8ff"></span> Speaking
   </div>
-  <div class="si" id="si-write" onclick="go('Reagiston writing ingliz','✍️ Writing','write')">
+  <div class="si" id="si-write" onclick="go('English writing skills lessons','✍️ Writing','write')">
     <span class="sd" style="background:#9b6fff"></span> Writing
   </div>
-  <div class="si" id="si-read" onclick="go('Reagiston reading ingliz tili','📖 Reading','read')">
+  <div class="si" id="si-read" onclick="go('English reading comprehension lessons','📖 Reading','read')">
     <span class="sd" style="background:#4caf7d"></span> Reading
   </div>
-  <div class="si" id="si-listen" onclick="go('Reagiston listening ingliz','🎧 Listening','listen')">
+  <div class="si" id="si-listen" onclick="go('English listening skills lessons','🎧 Listening','listen')">
     <span class="sd" style="background:#f5c842"></span> Listening
   </div>
   <div class="ndiv"></div>
   <div class="sb-lbl">🎓 Imtihonlar</div>
-  <div class="si" id="si-sat" onclick="go('Reagiston SAT preparation','📐 SAT','sat')">
+  <div class="si" id="si-sat" onclick="go('SAT preparation full course','📐 SAT','sat')">
     <span class="sd" style="background:#ff5252"></span> SAT
   </div>
-  <div class="si" id="si-toefl" onclick="go('Reagiston TOEFL','📋 TOEFL','toefl')">
+  <div class="si" id="si-toefl" onclick="go('TOEFL preparation lessons','📋 TOEFL','toefl')">
     <span class="sd" style="background:#ff9800"></span> TOEFL
   </div>
-  <div class="si" id="si-gram" onclick="go('Reagiston ingliz tili grammatika','📝 Grammatika','gram')">
+  <div class="si" id="si-gram" onclick="go('ingliz tili grammatika dars uzbek','📝 Grammatika','gram')">
     <span class="sd" style="background:#e91e63"></span> Grammatika
   </div>
-  <div class="si" id="si-vocab" onclick="go('Reagiston vocabulary ingliz so\'z','💬 So\'z boyligi','vocab')">
+  <div class="si" id="si-vocab" onclick="go('English vocabulary words lessons','💬 So\'z boyligi','vocab')">
     <span class="sd" style="background:#00bcd4"></span> So'z boyligi
   </div>
   <div class="ndiv"></div>
   <div class="sb-lbl">🔬 Fanlar</div>
-  <div class="si" id="si-math" onclick="go('Reagiston matematika dars','➕ Matematika','math')">
+  <div class="si" id="si-math" onclick="go('matematika dars uzbek','➕ Matematika','math')">
     <span class="sd" style="background:#8bc34a"></span> Matematika
   </div>
-  <div class="si" id="si-phys" onclick="go('Reagiston fizika dars','⚡ Fizika','phys')">
+  <div class="si" id="si-phys" onclick="go('fizika dars uzbek','⚡ Fizika','phys')">
     <span class="sd" style="background:#ff7043"></span> Fizika
   </div>
-  <div class="si" id="si-chem" onclick="go('Reagiston kimyo dars','🧪 Kimyo','chem')">
+  <div class="si" id="si-chem" onclick="go('kimyo dars uzbek','🧪 Kimyo','chem')">
     <span class="sd" style="background:#26c6da"></span> Kimyo
   </div>
-  <div class="si" id="si-bio" onclick="go('Reagiston biologiya dars','🌿 Biologiya','bio')">
+  <div class="si" id="si-bio" onclick="go('biologiya dars uzbek','🌿 Biologiya','bio')">
     <span class="sd" style="background:#66bb6a"></span> Biologiya
   </div>
-  <div class="si" id="si-code" onclick="go('Reagiston dasturlash Python','💻 Dasturlash','code')">
+  <div class="si" id="si-code" onclick="go('dasturlash Python uzbek dars','💻 Dasturlash','code')">
     <span class="sd" style="background:#42a5f5"></span> Dasturlash
   </div>
-  <div class="si" id="si-online" onclick="go('Reagiston online kurs','🎓 Online Kurslar','online')">
+  <div class="si" id="si-online" onclick="go('online kurs uzbek ta\'lim','🎓 Online Kurslar','online')">
     <span class="sd" style="background:#7C3AED"></span> Online Kurslar
   </div>
-  <div class="si" id="si-chem2" onclick="go('Reagiston barcha fanlar dars videolar','📺 Barcha Fanlar','all2')">
+  <div class="si" id="si-chem2" onclick="go('barcha fanlar dars uzbek ta\'lim','📺 Barcha Fanlar','all2')">
     <span class="sd" style="background:#A78BFA"></span> Barcha Fanlar
   </div>
   <div class="ndiv"></div>
@@ -990,8 +1058,8 @@ document.getElementById('profileMod').addEventListener('click', e => {
 });
 
 // ===== CONFIG =====
-let API_KEY = localStorage.getItem('yt_api_key') || 'AIzaSyAWMh6hOmk99gR-Nedg38NbQBqy9UIqxFA';
-let curQ = "Reagiston ta'lim markazi";
+let API_KEY = localStorage.getItem('yt_api_key') || 'AIzaSyBfe7P5e8k8zMw8OVpFc7dgViLGK15Zfks';
+let curQ = "barcha darslar";
 let curTitle = '📚 Barcha Darslar';
 let currentVideoId='', currentChannel='', currentChannelId='';
 let currentSnippet = {};
@@ -1509,22 +1577,12 @@ function renderSubGrid(items){
 
 // ===== ALL REAGISTON QUERIES — Keng qamrovli =====
 const ALL_QUERIES=[
-  "Reagiston ta'lim markazi",
-  "Reagiston IELTS dars",
-  "Reagiston speaking ingliz tili",
-  "Reagiston grammatika english",
-  "Reagiston SAT tayyorlov",
-  "Reagiston writing dars",
-  "Reagiston reading ingliz",
-  "Reagiston listening dars",
-  "Reagiston vocabulary so'z boyligi",
-  "Reagiston TOEFL dars",
-  "Reagiston matematika dars",
-  "Reagiston fizika dars",
-  "Reagiston kimyo biologiya",
-  "Reagiston dasturlash Python",
-  "Reagiston online kurs",
-  "Reagiston channel uzb",
+  "IELTS preparation full course uzbek",
+  "English speaking practice uzbek",
+  "ingliz tili grammatika dars",
+  "SAT TOEFL tayyorlov dars",
+  "matematika fizika kimyo dars uzbek",
+  "dasturlash Python kurs uzbek",
 ];
 
 // ===== FETCH VIDEOS =====
@@ -1548,19 +1606,36 @@ async function fetchVideos(query,title){
   }
 
   try{
-    const queries=query==="Reagiston ta'lim markazi"?ALL_QUERIES:[query];
+    const queries=query==="barcha darslar"?ALL_QUERIES:[query];
     let allItems=[];
+    let lastApiError=null;
+    let networkError=null;
     for(const q of queries){
-      const r=await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(q)}&type=video&maxResults=10&order=relevance&regionCode=UZ&key=${API_KEY}`);
-      const d=await r.json();
-      if(d.error){ handleApiError(d.error); return; }
-      allItems=[...allItems,...(d.items||[])];
+      try{
+        const r=await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(q)}&type=video&maxResults=10&order=relevance&regionCode=UZ&key=${API_KEY}`);
+        const d=await r.json();
+        if(d.error){ lastApiError=d.error; continue; }
+        allItems=[...allItems,...(d.items||[])];
+      }catch(e){ networkError=e; }
+    }
+    // Hech narsa yuklanmagan — xatoni ko'rsat
+    if(!allItems.length){
+      if(lastApiError){ handleApiError(lastApiError); return; }
+      if(networkError){
+        document.getElementById('loadst').style.display='none';
+        document.getElementById('grid').innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:50px 20px;">
+          <div style="font-size:2.5rem;margin-bottom:12px">🌐</div>
+          <div style="font-family:'Unbounded',sans-serif;font-size:.9rem;margin-bottom:8px">Internet ulanish xatosi</div>
+          <div style="background:var(--s2);border:1px solid var(--bd);border-radius:8px;padding:8px 14px;font-size:.72rem;color:var(--mu2);margin-bottom:16px;font-family:monospace">${networkError.message}</div>
+          <button onclick="fetchVideos(curQ,curTitle)" style="background:linear-gradient(135deg,var(--olv),var(--olv2));color:#fff;border:none;padding:10px 24px;border-radius:10px;font-weight:800;cursor:pointer;font-size:.84rem;font-family:'Nunito',sans-serif;">🔄 Qayta urinish</button>
+        </div>`; return;
+      }
+      document.getElementById('loadst').style.display='none';
+      document.getElementById('empst').style.display='block'; return;
     }
     // Deduplicate
     const seen=new Set();
     allItems=allItems.filter(item=>{ const id=item.id?.videoId||item.id; if(seen.has(id))return false; seen.add(id); return true; });
-    // Filter: keep only Reagiston-related
-    allItems=allItems.filter(item=>{ const t=(item.snippet?.title||'').toLowerCase(); const c=(item.snippet?.channelTitle||'').toLowerCase(); return t.includes('reagiston')||c.includes('reagiston')||query!=="Reagiston ta'lim markazi"; });
     currentPlaylist=allItems;
     sc(cacheKey,allItems);
     document.getElementById('loadst').style.display='none';
@@ -1574,16 +1649,38 @@ async function fetchVideos(query,title){
 function handleApiError(err){
   document.getElementById('loadst').style.display='none';
   const grid=document.getElementById('grid');
-  if(err.code===403){
-    grid.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:50px 20px;">
-      <div style="font-size:2rem;margin-bottom:12px">🔑</div>
-      <div style="font-family:'Unbounded',sans-serif;font-size:.9rem;margin-bottom:8px">API kalit chegarasi tugadi</div>
-      <div style="color:var(--mu);font-size:.82rem;margin-bottom:16px">Yangi API kalit kiriting yoki kuting</div>
-      <button onclick="document.getElementById('openApi').click()" style="background:linear-gradient(135deg,var(--olv),var(--olv2));color:#fff;border:none;padding:10px 24px;border-radius:10px;font-weight:800;cursor:pointer;font-size:.84rem;font-family:'Nunito',sans-serif;">🔑 API Kalit Kiriting</button>
-    </div>`;
+  const code=err.code||'?';
+  const msg=err.message||err.errors?.[0]?.message||'Noma\'lum xato';
+  let icon='⚠️', title='', hint='';
+
+  if(code===403){
+    // Quota yoki API yoqilmagan
+    const reason=err.errors?.[0]?.reason||'';
+    if(reason==='quotaExceeded'||reason==='dailyLimitExceeded'){
+      icon='📊'; title='Kunlik limit tugadi';
+      hint='YouTube API kunlik so\'rov limiti tugadi. Ertaga avtomatik yangilanadi yoki yangi API kalit oling.';
+    } else {
+      icon='🔒'; title='Ruxsat yo\'q (403)';
+      hint='API kalitingizda YouTube Data API v3 yoqilmagan bo\'lishi mumkin. Google Cloud Console → APIs & Services → YouTube Data API v3 ni yoqing.';
+    }
+  } else if(code===400){
+    icon='❌'; title='Noto\'g\'ri so\'rov (400)';
+    hint='API kaliti noto\'g\'ri yoki parametrlarda xato bor. Kalitni tekshiring.';
+  } else if(code===401){
+    icon='🔑'; title='API kalit noto\'g\'ri (401)';
+    hint='API kalitingiz yaroqsiz. Yangi kalit kiriting.';
   } else {
-    document.getElementById('empst').style.display='block';
+    icon='⚠️'; title=`Xato (${code})`;
+    hint=msg;
   }
+
+  grid.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:50px 20px;max-width:500px;margin:0 auto;">
+    <div style="font-size:2.5rem;margin-bottom:14px">${icon}</div>
+    <div style="font-family:'Unbounded',sans-serif;font-size:.95rem;margin-bottom:10px;color:var(--tx)">${title}</div>
+    <div style="color:var(--mu);font-size:.8rem;margin-bottom:8px;line-height:1.6">${hint}</div>
+    <div style="background:var(--s2);border:1px solid var(--bd);border-radius:8px;padding:8px 14px;font-size:.72rem;color:var(--mu2);margin-bottom:20px;font-family:monospace;word-break:break-all">Xato: ${code} — ${msg}</div>
+    <button onclick="document.getElementById('openApi').click()" style="background:linear-gradient(135deg,var(--olv),var(--olv2));color:#fff;border:none;padding:10px 24px;border-radius:10px;font-weight:800;cursor:pointer;font-size:.84rem;font-family:'Nunito',sans-serif;">🔑 Yangi API Kalit Kiriting</button>
+  </div>`;
 }
 
 function renderGrid(items){
@@ -1657,7 +1754,7 @@ function chipGo(btn,q,title){
 function doSearch(){
   const v=document.getElementById('sbox').value.trim();
   if(!v) return;
-  const q=v.toLowerCase().includes('reagiston')?v:'Reagiston '+v;
+  const q=v;
   document.querySelectorAll('.chip,.si').forEach(e=>e.classList.remove('active'));
   document.getElementById('ni-home').classList.add('active');
   navTo('home');
@@ -1682,7 +1779,14 @@ document.getElementById('openApi').onclick=()=>{
 document.getElementById('closeApi').onclick=()=>document.getElementById('apiMod').classList.remove('open');
 document.getElementById('saveApi').onclick=()=>{
   const k=document.getElementById('apiIn').value.trim();
-  if(k){ API_KEY=k; localStorage.setItem('yt_api_key',k); }
+  if(k){
+    API_KEY=k;
+    localStorage.setItem('yt_api_key',k);
+    // Eski keshlangan natijalarni tozalash
+    Object.keys(localStorage).forEach(key=>{
+      if(key.startsWith('rg_c_')||key.startsWith('sub_')) localStorage.removeItem(key);
+    });
+  }
   document.getElementById('apiMod').classList.remove('open');
   fetchVideos(curQ,curTitle);
 };
@@ -1694,7 +1798,7 @@ document.getElementById('apiMod').addEventListener('click',e=>{
 initTelegram();
 updateSubUI();
 buildContinueWatching();
-fetchVideos("Reagiston ta'lim markazi",'📚 Barcha Darslar');
+fetchVideos("barcha darslar",'📚 Barcha Darslar');
 </script>
 </body>
 </html>
